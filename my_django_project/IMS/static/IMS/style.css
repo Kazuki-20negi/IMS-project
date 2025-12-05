@@ -1,0 +1,278 @@
+/* style.css */
+
+a {
+    color: inherit; /* 親要素の色を引き継ぐ */
+    text-decoration: none; /* 下線を消す（必要に応じて） */
+}
+
+/* 訪問済みリンク */
+a:visited {
+    color: inherit; /* 訪問後も色が変わらないように */
+}
+
+/* マウスオーバー時 */
+a:hover {
+    color: inherit; /* マウスオーバー時の色を変えない */
+}
+
+/* アクティブ状態 */
+a:active {
+    color: inherit; /* クリックした時も色を変えない */
+}
+
+
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f8f8;
+    color: #333;
+}
+
+header {
+    background-color: #005bac;
+    color: white;
+    padding: 1em;
+}
+
+main{
+    padding: 0 1em; /* main要素の内側に上下左右2emの余白を追加 */
+}
+header h1 {
+    text-align: center;
+}
+header h3 {
+    position: absolute;
+    left: 1em;
+    top: 1em;
+    margin: 0;
+    padding: 0.4em 0.8em;
+    background-color: #ffffff33;
+    border: 1px solid white;
+    border-radius: 5px;
+    display: inline-block;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-weight: normal;
+}
+header h3:hover {
+    background-color: #ffffff55;
+}
+
+/* style.css */
+
+/* ...他のスタイル... */
+
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0; /* 念のため余白をリセット */
+  display: grid; /* FlexboxからGridレイアウトに変更 */
+  grid-template-columns: repeat(3, 1fr); /* 3つの均等な列を作成 */
+  gap: 1em; /* 各項目間の隙間を確保 (縦横両方) */
+}
+
+nav li {
+  /* margin: 0.5em 1em;  元のマージンはgapで管理するため不要になります */
+  text-align: center; /* 各項目内のテキストを中央揃えに */
+  background-color: #e3f2fd; /* ボタンのような見た目に */
+  padding: 0.8em;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+/* マウスオーバー時のスタイルを追加 */
+nav li:hover {
+  background-color: #cde7f8;
+}
+
+
+nav a {
+  color: rgb(0, 0, 0);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* ...他のスタイル... */
+
+.hero {
+    padding: 2em;
+    text-align: center;
+    background-color: #e3f2fd;
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 1em;
+    margin-top: 2em;
+}
+
+/* 汎用的なbuttonセレクタを、より具体的なIDセレクタに限定 */
+#toggleButton {
+    color: black;
+    background-color: aquamarine;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* --- ここから追記: アコーディオン用のスタイル --- */
+/* アコーディオンの開閉ボタン */
+.accordion-toggle {
+    width: 100%;
+    padding: 15px;
+    margin-top: 10px;
+    text-align: left;
+    background-color: #f1f1f1;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.2s;
+}
+
+.accordion-toggle:hover {
+    background-color: #ddd;
+}
+
+/* アコーディオンが開いている時のボタンスタイル */
+.accordion-toggle.is-active {
+    background-color: #e0e0e0;
+    border-radius: 4px 4px 0 0;
+}
+
+/* アコーディオンで開閉されるコンテンツエリア */
+.accordion-content {
+    display: none;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-top: none;
+    margin-bottom: 10px;
+    background-color: white;
+}
+
+/* is-openクラスが付与されたら表示する */
+.accordion-content.is-open {
+    display: block;
+}
+/* --- ここまで追記 --- */
+
+#toggleContent {
+    background-color: #e3f2fd;
+    padding: 5px;
+    margin: 0 20px
+}
+
+/* === 追記部分 === */
+/* ブロックフォームの基本スタイル */
+.block-form {
+    border: 1px solid #ccc;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.block-form .field-wrapper {
+    margin-bottom: 10px;
+}
+
+.block-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.block-form input[type="text"],
+.block-form input[type="file"],
+.block-form textarea {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+/* ブロックタイプに応じたフィールドの表示/非表示 (重要) */
+.block-form[data-block-type="text"] .image-field {
+    display: none;
+}
+
+.block-form[data-block-type="image"] .content-field {
+    display: none;
+}
+
+/* 削除チェックボックスを非表示にする（ボタンで操作するため） */
+.block-form input[type="checkbox"][name$="-DELETE"] {
+    display: none;
+}
+
+.delete-form-btn {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    float: right;
+    width: auto;
+}
+
+.delete-form-btn:hover {
+    background-color: #c82333;
+}
+
+/* アップロード済み画像のスタイル */
+.current-image img {
+    max-width: 200px;
+    height: auto;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    display: block;
+}
+
+/* ボタンコンテナ */
+.form-actions {
+    margin-top: 20px;
+}
+
+/* form-actions内のボタンのスタイルを調整 */
+.form-actions button {
+    width: auto;
+    margin-right: 10px;
+    padding: 8px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.form-actions button:hover {
+    background-color: #0056b3;
+}
+
+/* 保存メッセージ */
+.message {
+    color: green;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+/* ... */
+
+/* モバイル対応 */
+@media screen and (max-width: 600px) {
+  /* 元々あったスタイル */
+  nav ul {
+    flex-direction: column;
+    align-items: center;
+    grid-template-columns: repeat(2, 1fr); /* 画面が狭い時は2列にする */
+  }
+
+  .hero {
+    padding: 1.5em 1em;
+  }
+}

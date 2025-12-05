@@ -1,0 +1,52 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>統合管理システム</title>
+  <link rel="stylesheet" href="{% static 'IMS/style.css' %}" />
+</head>
+<body>
+  <header>
+    <h3><a href="#">ログアウト</a></h3>
+    <h1>統合管理システム</h1>
+  </header>
+
+  <main>
+    <br>
+    <nav>
+      <ul>
+        {# === ここから変更 === #}
+        {% if pages %}
+          {% for page in pages %}
+            <li><a href="{% url 'page_detail' page.id %}">{{ page.title }}</a></li>
+          {% endfor %}
+        {% else %}
+          <li>ページがありません。</li>
+        {% endif %}
+        {# === ここまで変更 === #}
+      </ul>
+    </nav>
+    
+    {# --- 元のnavタグが複数あった場合、一旦一つにまとめます。--- #}
+    {# --- レイアウトを維持したい場合は、別途調整が必要です。 --- #}
+    {# <nav> ... </nav> #}
+    {# <nav> ... </nav> #}
+
+    <br>
+    <section class="hero">
+      <h2>個人情報の統合管理システム</h2>
+      <p>高度なハードウェア・ソフトウェアセキュリティを実装。
+        完全性、可用性、機密性を備えたシステム。
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 統合管理システム</p>
+  </footer>
+  <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>

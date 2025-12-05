@@ -1,0 +1,89 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>統合管理システム</title>
+    <link rel="stylesheet" href="{% static 'IMS/style.css' %}" />
+</head>
+<body>
+    <header>
+        <h3><a href="{% url 'home' %}">ホーム</a></h3>
+        <h1>統合管理システム</h1>
+    </header>
+
+    <main>
+        <h1>{{ page.title }}</h1>
+        {% if message %}
+            <p class="message">{{ message }}</p>
+        {% endif %}
+
+        {% for category in categories %}
+            <div class="category-container">
+                <button class="accordion-toggle">{{ category.title }}</button>
+                <div class="accordion-content">
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <input type="hidden" name="category_id" value="{{ category.id }}">
+
+                        {{ category.formset.management_form }}
+                        
+                        <div id="form-container-cat-{{ category.id }}">
+                            {% for form in category.formset %}
+                                <div class="block-form" data-block-type="{{ form.instance.block_type }}">
+                                    {{ form.DELETE }}
+                                    {{ form.id }}
+                                    {{ form.order }}
+                                    {{ form.block_type }}
+
+                                    <div class="field-wrapper content-field">
+                                        <label for="{{ form.content.id_for_label }}">内容</label>
+                                        {{ form.content }}
+                                    </div>
+                                    <div class="field-wrapper image-field">
+                                        <label for="{{ form.image.id_for_label }}">画像</label>
+                                        {% if form.instance and form.instance.image %}
+                                            <div class="current-image">
+                                                <img src="{{ form.instance.image.url }}" alt="アップロード済画像">
+                                            </div>
+                                        {% endif %}
+                                        {{ form.image }}
+                                    </div>
+                                    <button type="button" class="delete-form-btn">削除</button>
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="empty-form" id="empty-form-cat-{{ category.id }}" style="display: none;">
+                            <div class="block-form" data-block-type="">
+                                {{ category.formset.empty_form.DELETE }}
+                                {{ category.formset.empty_form.id }}
+                                {{ category.formset.empty_form.order }}
+                                {{ category.formset.empty_form.block_type }}
+
+                                <div class="field-wrapper content-field">
+                                    <label for="{{ category.formset.empty_form.content.id_for_label }}"></label>
+                                    {{ category.formset.empty_form.content }}
+                                </div>
+                                <div class="field-wrapper image-field">
+                                    <label for="{{ category.formset.empty_form.image.id_for_label }}">画像</label>
+                                    {{ category.formset.empty_form.image }}
+                                </div>
+                                <button type="button" class="delete-form-btn">削除</button>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button type="button" class="add-block-btn" data-type="text" data-cat-id="{{ category.id }}">＋テキストブロック追加</button>
+                            <button type="button" class="add-block-btn" data-type="image" data-cat-id="{{ category.id }}">＋画像ブロック追加</button>
+                            <button type="submit">「{{ category.title }}」を保存</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        {% endfor %}
+    </main>
+    <script src="{% static 'js/script.js' %}"></script>
+
+    </body>
+</html>
