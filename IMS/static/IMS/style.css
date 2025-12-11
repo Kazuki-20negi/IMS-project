@@ -46,7 +46,10 @@ header h3 {
     left: 1em;
     top: 1em;
     margin: 0;
-    padding: 0.4em 0.8em;
+    
+    /* --- 変更箇所 --- */
+    padding: 0; /* 元の 0.4em 0.8em を削除して 0 に */
+    
     background-color: #ffffff33;
     border: 1px solid white;
     border-radius: 5px;
@@ -55,13 +58,19 @@ header h3 {
     transition: background-color 0.3s;
     font-weight: normal;
 }
+
 header h3:hover {
     background-color: #ffffff55;
 }
 
-/* style.css */
-
-/* ...他のスタイル... */
+header h3 a {
+    display: block;        /* ブロック要素にして全体に広げる */
+    padding: 0.4em 0.8em;  /* h3にあった余白をここに移動 */
+    width: 100%;           /* 横幅いっぱい */
+    height: 100%;          /* 高さいっぱい */
+    color: inherit;        /* 文字色を親(h3)から引き継ぐ */
+    text-decoration: none; /* 下線を消す */
+}
 
 nav ul {
   list-style: none;
@@ -73,27 +82,31 @@ nav ul {
 }
 
 nav li {
-  /* margin: 0.5em 1em;  元のマージンはgapで管理するため不要になります */
-  text-align: center; /* 各項目内のテキストを中央揃えに */
-  background-color: #e3f2fd; /* ボタンのような見た目に */
-  padding: 0.8em;
+  /* margin: 0.5em 1em; */
+  text-align: center;
+  background-color: #e3f2fd;
+  padding: 0;  
+  
   border-radius: 5px;
   transition: background-color 0.3s;
+  overflow: hidden; 
 }
 
-/* マウスオーバー時のスタイルを追加 */
+/* マウスオーバー時のスタイル */
 nav li:hover {
   background-color: #cde7f8;
 }
-
 
 nav a {
   color: rgb(0, 0, 0);
   text-decoration: none;
   font-weight: bold;
+  display: block;       /* ブロック要素にして親要素(li)いっぱいに広げる */
+  width: 100%;          /* 横幅100% */
+  height: 100%;         /* 高さ100% */
+  padding: 0.8em;       /* liにあったpaddingをこちらに移動 */
+  box-sizing: border-box; /* paddingを含めたサイズ計算にする */
 }
-
-/* ...他のスタイル... */
 
 .hero {
     padding: 2em;
@@ -120,7 +133,7 @@ footer {
     cursor: pointer;
 }
 
-/* --- ここから追記: アコーディオン用のスタイル --- */
+/* アコーディオン用のスタイル --- */
 /* アコーディオンの開閉ボタン */
 .accordion-toggle {
     width: 100%;
@@ -159,7 +172,6 @@ footer {
 .accordion-content.is-open {
     display: block;
 }
-/* --- ここまで追記 --- */
 
 #toggleContent {
     background-color: #e3f2fd;
@@ -167,7 +179,6 @@ footer {
     margin: 0 20px
 }
 
-/* === 追記部分 === */
 /* ブロックフォームの基本スタイル */
 .block-form {
     border: 1px solid #ccc;
