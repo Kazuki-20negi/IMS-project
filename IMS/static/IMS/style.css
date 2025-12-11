@@ -272,8 +272,6 @@ footer {
     margin-bottom: 15px;
 }
 
-/* ... */
-
 /* モバイル対応 */
 @media screen and (max-width: 600px) {
   /* 元々あったスタイル */
@@ -286,4 +284,55 @@ footer {
   .hero {
     padding: 1.5em 1em;
   }
+}
+
+/* スマホでの入力時ズーム防止（フォントサイズを16px以上にする） */
+@media screen and (max-width: 768px) {
+    input[type="text"],
+    input[type="number"],
+    input[type="email"],
+    input[type="password"],
+    textarea,
+    select {
+        font-size: 16px; /* ズームしなくなる */
+    }
+}
+
+/* テキストエリアのアコーディオン表示用スタイル */
+.textarea-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+/* 初期状態：高さ制限あり（約15行分） */
+.textarea-wrapper textarea.collapsed {
+    height: 24em; /* 1.5em(行高) * 16行程度 */
+    max-height: 24em;
+    overflow: auto;
+    resize: none; /* ユーザーによるリサイズを無効化 */
+}
+
+/* 展開状態：高さ制限なし */
+.textarea-wrapper textarea.expanded {
+    height: auto;
+    max-height: none;
+    overflow: visible;
+}
+
+/* 「もっと見る/閉じる」ボタン */
+.expand-toggle-btn {
+    display: block;
+    width: 100%;
+    text-align: center;
+    background-color: #f1f1f1;
+    border: 1px solid #ccc;
+    border-top: none;
+    padding: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+    color: #555;
+    border-radius: 0 0 5px 5px;
+}
+.expand-toggle-btn:hover {
+    background-color: #e9e9e9;
 }

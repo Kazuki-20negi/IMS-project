@@ -7,7 +7,7 @@ class BlockForm(forms.ModelForm):
         # 'category'はビューで処理するため、fieldsから除外
         fields = ["block_type", "content", "image", "order", "id"]
         widgets = {
-            'content': forms.Textarea(attrs={"rows": 4, "placeholder": "内容を入力"}),
+            'content': forms.Textarea(attrs={"rows": 15, "placeholder": "内容を入力", "class": "auto-expand-textarea collapsed"}),
             'order': forms.HiddenInput(),
             'block_type': forms.HiddenInput(),
         }
