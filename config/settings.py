@@ -134,3 +134,19 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# config/settings.py
+
+# プロキシヘッダーの設定（重要: これがないとDjangoがHTTPS通信であることを認識できない）
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# SSLリダイレクト（Nginxでやっているので必須ではないが、念のため）
+SECURE_SSL_REDIRECT = True
+
+# CSRF対策（サーバーのIPやドメインを指定）
+# 例: CSRF_TRUSTED_ORIGINS = ['https://192.168.1.100']
+CSRF_TRUSTED_ORIGINS = ['https://<サーバーのIPまたはドメイン>']
+
+# セッションCookieとCSRF CookieをHTTPSのみに限定
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
