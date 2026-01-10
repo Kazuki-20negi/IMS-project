@@ -1,21 +1,17 @@
 from django.shortcuts import render
-
-# Create your views here.
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from .models import Audiogram
 
-@csrf_exempt  # CSRFチェックを免除する（重要）
+@csrf_exempt  # CSRFチェックを免除する
 def upload_audiogram(request):
     if request.method == 'POST':
-        # 1. 画像ファイルの取得
-        # main.py では files={"original_file": f} で送っているので、ここで受け取る
+        # 画像ファイルの取得
         original_file = request.FILES.get('original_file')
-
         if not original_file:
             return JsonResponse({'error': '画像ファイルがありません'}, status=400)
 
-        # 2. テキストデータの取得
+        # テキストデータの取得
         # main.py の payload に入っているデータを受け取る
         filename = request.POST.get('filename')
         exam_date = request.POST.get('exam_date')
@@ -28,7 +24,7 @@ def upload_audiogram(request):
         if exam_date == 'None' or exam_date == '':
             exam_date = None
 
-        # 3. データベースへ保存
+        # データベースへ保存
         try:
             new_audiogram = Audiogram.objects.create(
                 original_file=original_file,
@@ -40,5 +36,4 @@ def upload_audiogram(request):
         
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=500)
-
     return JsonResponse({'error': 'POSTメソッドのみ許可されています'}, status=405)
