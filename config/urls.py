@@ -25,6 +25,7 @@ from django.views.static import serve
 urlpatterns = [
     path('admin2/', admin.site.urls),
     path('', include('IMS.urls')),
+    path('audiograms/', include('audiograms.urls')),
     re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
 ]
 
