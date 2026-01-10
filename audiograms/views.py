@@ -2,10 +2,16 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from .models import Audiogram
+import os
 
 @csrf_exempt  # CSRFチェックを免除する
 def upload_audiogram(request):
     if request.method == 'POST':
+        server_key=os.environ.get("AUDIOGRAM_API_KEY")
+        client_key=request.headers.get("X-Api-Key")
+        if not server_key or server_key != client_key:
+            return JsonResponse({'error': '認証エラー: APIキーが違います'}, status=403)
+
         # 画像ファイルの取得
         original_file = request.FILES.get('original_file')
         if not original_file:
