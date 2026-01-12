@@ -139,15 +139,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # config/settings.py
 
 # プロキシヘッダーの設定（重要: これがないとDjangoがHTTPS通信であることを認識できない）
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-
-# SSLリダイレクト（Nginxでやっているので必須ではないが、念のため）
-SECURE_SSL_REDIRECT = True
-
-# CSRF対策（サーバーのIPやドメインを指定）
-# 例: CSRF_TRUSTED_ORIGINS = ['https://192.168.1.100']
-CSRF_TRUSTED_ORIGINS = ['https://<サーバーのIPまたはドメイン>']
-
-# セッションCookieとCSRF CookieをHTTPSのみに限定
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
+if not DEBUG:
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    SECURE_SSL_REDIRECT = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    CSRF_TRUSTED_ORIGINS = ['https://<サーバーのIPまたはドメイン>']
+else:
+    # 開発環境ではHTTPS強制を無効化
+    SECURE_SSL_REDIRECT = False
+    SESSION_COOKIE_SECURE = False
+    CSRF_COOKIE_SECURE = False
