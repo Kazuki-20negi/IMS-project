@@ -43,3 +43,7 @@ def upload_audiogram(request):
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=500)
     return JsonResponse({'error': 'POSTメソッドのみ許可されています'}, status=405)
+
+def audiogram_list(request):
+    audiograms=Audiogram.objects.all().order_by("-created_at")
+    return render(request, "audiograms/list.html", {"audiograms": audiograms})
