@@ -1,0 +1,98 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>聴力検査結果一覧</title>
+    <link rel="stylesheet" href="{% static 'IMS/style.css' %}">
+    <style>
+        /* このページ専用の簡易スタイル */
+        .status-badge {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            font-weight: bold;
+        }
+        .status-review {
+            background-color: #ffcccc;
+            color: #cc0000;
+        }
+        .status-ok {
+            background-color: #ccffcc;
+            color: #006600;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: white;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:hover {background-color: #f9f9f9;}
+    </style>
+</head>
+<body>
+    <header>
+        <h3><a href="/">ホーム</a></h3>
+        <h1>聴力検査結果一覧</h1>
+    </header>
+
+    <main>
+        <div style="margin-top: 20px;">
+            <p>登録されている検査データの一覧です。</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>検査日</th>
+                        <th>ファイル名</th>
+                        <th>状態</th>
+                        <th>メモ</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in audiograms %}
+                    <tr>
+                        <td>
+                            {% if item.exam_date %}
+                                {{ item.exam_date }}
+                            {% else %}
+                                <span style="color:red;">不明</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ item.filename }}</td>
+                        <td>
+                            {% if item.need_review %}
+                                <span class="status-badge status-review">要確認</span>
+                            {% else %}
+                                <span class="status-badge status-ok">完了</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ item.memo|default:"-" }}</td>
+                        <td>
+                            <button disabled>編集</button>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" style="text-align: center;">データがまだありません。</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </main>
+    
+    <footer>
+        <p>&copy; 2025 統合管理システム</p>
+    </footer>
+</body>
+</html>
