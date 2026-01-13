@@ -1,7 +1,9 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Audiogram
+from .forms import AudiogramForm
 import os
 
 @csrf_exempt  # CSRFチェックを免除する
@@ -47,3 +49,24 @@ def upload_audiogram(request):
 def audiogram_list(request):
     audiograms=Audiogram.objects.all().order_by("-created_at")
     return render(request, "audiograms/list.html", {"audiograms": audiograms})
+
+def audiogram_edit(request, audiogram_id):
+    # URLで指定されたIDのデータを取得（なければ404エラー）
+    audiogram = get_object_or_404(Audiogram, pk=audiogram_id)
+
+    if request.method == "POST":
+        # 送信されたデータでフォームを更新
+        # instance=audiogram を渡すことで「新規作成」ではなく「上書き」になる
+        form = AudiogramForm(request.POST, instance=audiogram)
+        
+        if form.is_valid():
+            form.save()
+            return redirect('audiograms') # 一覧画面に戻る（name="audiograms"）
+    else:
+        # 初回表示時（GET）は、既存データをフォームに入れた状態で表示
+        form = AudiogramForm(instance=audiogram)
+
+    return render(request, 'audiograms/edit.html', {
+        'form': form,
+        'audiogram': audiogram
+    })
