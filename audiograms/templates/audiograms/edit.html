@@ -1,0 +1,114 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>編集: {{ audiogram.filename }}</title>
+    <link rel="stylesheet" href="{% static 'IMS/style.css' %}">
+    <style>
+        .container {
+            display: flex;
+            gap: 20px;
+            padding: 20px;
+            flex-wrap: wrap; /* スマホなら縦並びになるように */
+        }
+        .image-area {
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
+            background: #eee;
+            padding: 10px;
+            border-radius: 8px;
+        }
+        .image-area img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ccc;
+        }
+        .form-area {
+            flex: 1;
+            min-width: 300px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #005bac;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #004488;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 10px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h3><a href="{% url 'audiograms' %}">一覧に戻る</a></h3>
+        <h1>検査データの編集</h1>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="image-area">
+                <h3>スキャン画像</h3>
+                {% if audiogram.original_file %}
+                    <a href="{{ audiogram.original_file.url }}" target="_blank">
+                        <img src="{{ audiogram.original_file.url }}" alt="検査結果画像">
+                    </a>
+                    <p><small>画像をクリックして拡大</small></p>
+                {% else %}
+                    <p>画像がありません</p>
+                {% endif %}
+            </div>
+
+            <div class="form-area">
+                <h3>データ編集</h3>
+                <form method="post">
+                    {% csrf_token %}
+                    
+                    {% for field in form %}
+                        <div class="form-group">
+                            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                            {{ field }}
+                            {% if field.errors %}
+                                <div style="color: red; font-size: 0.9em;">{{ field.errors }}</div>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+
+                    <div style="margin-top: 20px;">
+                        <button type="submit">保存する</button>
+                    </div>
+                </form>
+                <a href="{% url 'audiograms' %}" class="back-link">キャンセルして戻る</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 統合管理システム</p>
+    </footer>
+</body>
+</html>
