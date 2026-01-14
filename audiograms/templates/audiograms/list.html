@@ -6,7 +6,6 @@
     <title>聴力検査結果一覧</title>
     <link rel="stylesheet" href="{% static 'IMS/style.css' %}">
     <style>
-        /* このページ専用の簡易スタイル */
         .status-badge {
             padding: 4px 8px;
             border-radius: 4px;
@@ -78,7 +77,9 @@
                         </td>
                         <td>{{ item.memo|default:"-" }}</td>
                         <td>
-                            <button disabled>編集</button>
+                            <a href="{% url 'audiogram_edit' item.id %}"
+                            style="display:inline-block; padding:5px 10px; background:#005bac; color:white; border-radius:4px; text-decoration:none;">
+                            編集</a>
                         </td>
                     </tr>
                     {% empty %}
