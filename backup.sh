@@ -21,8 +21,6 @@ cp $PROJECT_DIR/db.sqlite3 $TEMP_DIR/
 cp -r $PROJECT_DIR/media $TEMP_DIR/
 
 # 3. まとめて圧縮 (zip)
-# zipコマンドがない場合に備えてインストール
-sudo apt-get install zip -y > /dev/null
 cd /tmp
 zip -r $ZIP_NAME backup_temp
 
