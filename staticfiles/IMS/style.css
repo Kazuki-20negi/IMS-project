@@ -1,0 +1,338 @@
+/* style.css */
+
+a {
+    color: inherit; /* 親要素の色を引き継ぐ */
+    text-decoration: none; /* 下線を消す（必要に応じて） */
+}
+
+/* 訪問済みリンク */
+a:visited {
+    color: inherit; /* 訪問後も色が変わらないように */
+}
+
+/* マウスオーバー時 */
+a:hover {
+    color: inherit; /* マウスオーバー時の色を変えない */
+}
+
+/* アクティブ状態 */
+a:active {
+    color: inherit; /* クリックした時も色を変えない */
+}
+
+
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f8f8;
+    color: #333;
+}
+
+header {
+    background-color: #005bac;
+    color: white;
+    padding: 1em;
+}
+
+main{
+    padding: 0 1em; /* main要素の内側に上下左右2emの余白を追加 */
+}
+header h1 {
+    text-align: center;
+}
+header h3 {
+    position: absolute;
+    left: 1em;
+    top: 1em;
+    margin: 0;
+    
+    /* --- 変更箇所 --- */
+    padding: 0; /* 元の 0.4em 0.8em を削除して 0 に */
+    
+    background-color: #ffffff33;
+    border: 1px solid white;
+    border-radius: 5px;
+    display: inline-block;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-weight: normal;
+}
+
+header h3:hover {
+    background-color: #ffffff55;
+}
+
+header h3 a {
+    display: block;        /* ブロック要素にして全体に広げる */
+    padding: 0.4em 0.8em;  /* h3にあった余白をここに移動 */
+    width: 100%;           /* 横幅いっぱい */
+    height: 100%;          /* 高さいっぱい */
+    color: inherit;        /* 文字色を親(h3)から引き継ぐ */
+    text-decoration: none; /* 下線を消す */
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0; /* 念のため余白をリセット */
+  display: grid; /* FlexboxからGridレイアウトに変更 */
+  grid-template-columns: repeat(3, 1fr); /* 3つの均等な列を作成 */
+  gap: 1em; /* 各項目間の隙間を確保 (縦横両方) */
+}
+
+nav li {
+  /* margin: 0.5em 1em; */
+  text-align: center;
+  background-color: #e3f2fd;
+  padding: 0;  
+  
+  border-radius: 5px;
+  transition: background-color 0.3s;
+  overflow: hidden; 
+}
+
+/* マウスオーバー時のスタイル */
+nav li:hover {
+  background-color: #cde7f8;
+}
+
+nav a {
+  color: rgb(0, 0, 0);
+  text-decoration: none;
+  font-weight: bold;
+  display: block;       /* ブロック要素にして親要素(li)いっぱいに広げる */
+  width: 100%;          /* 横幅100% */
+  height: 100%;         /* 高さ100% */
+  padding: 0.8em;       /* liにあったpaddingをこちらに移動 */
+  box-sizing: border-box; /* paddingを含めたサイズ計算にする */
+}
+
+.hero {
+    padding: 2em;
+    text-align: center;
+    background-color: #e3f2fd;
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 1em;
+    margin-top: 2em;
+}
+
+/* 汎用的なbuttonセレクタを、より具体的なIDセレクタに限定 */
+#toggleButton {
+    color: black;
+    background-color: aquamarine;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* アコーディオン用のスタイル --- */
+/* アコーディオンの開閉ボタン */
+.accordion-toggle {
+    width: 100%;
+    padding: 15px;
+    margin-top: 10px;
+    text-align: left;
+    background-color: #f1f1f1;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.2s;
+}
+
+.accordion-toggle:hover {
+    background-color: #ddd;
+}
+
+/* アコーディオンが開いている時のボタンスタイル */
+.accordion-toggle.is-active {
+    background-color: #e0e0e0;
+    border-radius: 4px 4px 0 0;
+}
+
+/* アコーディオンで開閉されるコンテンツエリア */
+.accordion-content {
+    display: none;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-top: none;
+    margin-bottom: 10px;
+    background-color: white;
+}
+
+/* is-openクラスが付与されたら表示する */
+.accordion-content.is-open {
+    display: block;
+}
+
+#toggleContent {
+    background-color: #e3f2fd;
+    padding: 5px;
+    margin: 0 20px
+}
+
+/* ブロックフォームの基本スタイル */
+.block-form {
+    border: 1px solid #ccc;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.block-form .field-wrapper {
+    margin-bottom: 10px;
+}
+
+.block-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.block-form input[type="text"],
+.block-form input[type="file"],
+.block-form textarea {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+/* ブロックタイプに応じたフィールドの表示/非表示 (重要) */
+.block-form[data-block-type="text"] .image-field {
+    display: none;
+}
+
+.block-form[data-block-type="image"] .content-field {
+    display: none;
+}
+
+/* 削除チェックボックスを非表示にする（ボタンで操作するため） */
+.block-form input[type="checkbox"][name$="-DELETE"] {
+    display: none;
+}
+
+.delete-form-btn {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    float: right;
+    width: auto;
+}
+
+.delete-form-btn:hover {
+    background-color: #c82333;
+}
+
+/* アップロード済み画像のスタイル */
+.current-image img {
+    max-width: 200px;
+    height: auto;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    display: block;
+}
+
+/* ボタンコンテナ */
+.form-actions {
+    margin-top: 20px;
+}
+
+/* form-actions内のボタンのスタイルを調整 */
+.form-actions button {
+    width: auto;
+    margin-right: 10px;
+    padding: 8px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.form-actions button:hover {
+    background-color: #0056b3;
+}
+
+/* 保存メッセージ */
+.message {
+    color: green;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+/* モバイル対応 */
+@media screen and (max-width: 600px) {
+  /* 元々あったスタイル */
+  nav ul {
+    flex-direction: column;
+    align-items: center;
+    grid-template-columns: repeat(2, 1fr); /* 画面が狭い時は2列にする */
+  }
+
+  .hero {
+    padding: 1.5em 1em;
+  }
+}
+
+/* スマホでの入力時ズーム防止（フォントサイズを16px以上にする） */
+@media screen and (max-width: 768px) {
+    input[type="text"],
+    input[type="number"],
+    input[type="email"],
+    input[type="password"],
+    textarea,
+    select {
+        font-size: 16px; /* ズームしなくなる */
+    }
+}
+
+/* テキストエリアのアコーディオン表示用スタイル */
+.textarea-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+/* 初期状態：高さ制限あり（約15行分） */
+.textarea-wrapper textarea.collapsed {
+    height: 24em; /* 1.5em(行高) * 16行程度 */
+    max-height: 24em;
+    overflow: auto;
+    resize: none; /* ユーザーによるリサイズを無効化 */
+}
+
+/* 展開状態：高さ制限なし */
+.textarea-wrapper textarea.expanded {
+    height: auto;
+    max-height: none;
+    overflow: visible;
+}
+
+/* 「もっと見る/閉じる」ボタン */
+.expand-toggle-btn {
+    display: block;
+    width: 100%;
+    text-align: center;
+    background-color: #f1f1f1;
+    border: 1px solid #ccc;
+    border-top: none;
+    padding: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+    color: #555;
+    border-radius: 0 0 5px 5px;
+}
+.expand-toggle-btn:hover {
+    background-color: #e9e9e9;
+}

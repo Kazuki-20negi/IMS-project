@@ -1,0 +1,30 @@
+services:
+  web:
+    build: .
+    # Nginx経由でアクセスするため、ホストへの直接公開(80:8000)はやめ、
+    # 内部ネットワーク向けにポート8000を公開(expose)します
+    expose:
+      - "8000"
+    volumes:
+      - ./db.sqlite3:/app/db.sqlite3
+      - ./media:/app/media
+      - .:/app
+    restart: always
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      # 作成した設定ファイルをコンテナ内にマウント
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+      # 作成した証明書フォルダをコンテナ内にマウント
+      - ./nginx/certs:/etc/nginx/certs
+      # 静的ファイルをNginxから配信するためのマウント
+      - ./staticfiles:/app/staticfiles
+      # メディアファイルをNginxから配信するためのマウント
+      - ./media:/app/media
+    depends_on:
+      - web
+    restart: always
